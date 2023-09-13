@@ -1,11 +1,12 @@
 version: "3"
 volumes:
   elasticsearch-data:
-  assignment_management:
+  node_modules:
 networks:
   elastic:
 services:
-  db:
+
+  database:
     image: postgres
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
@@ -15,9 +16,11 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - listen_addresses="*"
-    container_name: db
+    container_name: postgress
+    restart: always
     networks:
       - elastic
+
   web:
     image: 941333681731.dkr.ecr.ap-south-1.amazonaws.com/django-project:latest
     # build:
@@ -44,7 +47,7 @@ services:
     image: adminer:4.7.6-standalone
     restart: always
     depends_on:
-        - db
+        - database
     container_name: adminer
     ports:
         - "8081:8080"
