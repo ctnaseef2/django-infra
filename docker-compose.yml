@@ -26,8 +26,6 @@ services:
     # build:
     #   context: ./assignment_management
     command: python manage.py runserver 0:8000
-    volumes:
-      - assignment_management:/code
     ports:
       - "8000:8000"
     depends_on:
