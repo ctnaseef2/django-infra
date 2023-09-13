@@ -1,7 +1,7 @@
 version: "3"
 volumes:
   elasticsearch-data:
-  node_modules:
+  assignment_management:
 networks:
   elastic:
 services:
@@ -19,11 +19,12 @@ services:
     networks:
       - elastic
   web:
-    build:
-      context: ./assignment_management
+    image: 941333681731.dkr.ecr.ap-south-1.amazonaws.com/django-project:latest
+    # build:
+    #   context: ./assignment_management
     command: python manage.py runserver 0:8000
     volumes:
-      - ./assignment_management:/code
+      - assignment_management:/code
     ports:
       - "8000:8000"
     depends_on:
